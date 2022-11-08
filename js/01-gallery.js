@@ -28,6 +28,8 @@ function createGalleryMarkup(itemsArray) {
     .join("");
 }
 
+let instance;
+
 function onGalleryItemClick(event) {
   event.preventDefault();
   const galleryItem = event.target;
@@ -36,9 +38,9 @@ function onGalleryItemClick(event) {
     return;
   }
 
-  const instance = basicLightbox.create(`
-        <img src="${galleryItem.dataset.source}" alt="${galleryItem.alt}">
-    `);
+  instance = basicLightbox.create(`
+          <img src="${galleryItem.dataset.source}" alt="${galleryItem.alt}">
+      `);
 
   openModal(instance);
 }
@@ -48,15 +50,14 @@ function openModal(instance) {
   document.addEventListener("keydown", onEscKeyPress);
 }
 
-function closeModal(instance) {
-  // Як передати сюди instance???
-  instance.close();
-  document.removeEventListener("keydown", onEscKeyPress);
-}
-
 function onEscKeyPress(event) {
   console.log("Escape button EventListener work check!");
   if (event.code === "Escape") {
-    closeModal();
+    closeModal(instance);
   }
+}
+
+function closeModal(instance) {
+  instance.close();
+  document.removeEventListener("keydown", onEscKeyPress);
 }
