@@ -40,22 +40,23 @@ function onGalleryItemClick(event) {
         <img src="${galleryItem.dataset.source}" alt="${galleryItem.alt}">
     `);
 
-  openModal();
+  openModal(instance);
+}
 
-  function openModal() {
-    instance.show();
-    document.addEventListener("keydown", onEscKeyPress);
-  }
+function openModal(instance) {
+  instance.show();
+  document.addEventListener("keydown", onEscKeyPress);
+}
 
-  function onEscKeyPress(event) {
-    console.log("Escape button EventListener work check!");
-    if (event.code === "Escape") {
-      closeModal();
-    }
-  }
+function closeModal(instance) {
+  // Як передати сюди instance???
+  instance.close();
+  document.removeEventListener("keydown", onEscKeyPress);
+}
 
-  function closeModal() {
-    instance.close();
-    document.removeEventListener("keydown", onEscKeyPress);
+function onEscKeyPress(event) {
+  console.log("Escape button EventListener work check!");
+  if (event.code === "Escape") {
+    closeModal();
   }
 }
